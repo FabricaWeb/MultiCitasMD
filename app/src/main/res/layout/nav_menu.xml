@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:checked="true"
+            android:title="op1" />
+        <item
+            android:id="@+id/nav_productos"
+            android:title="op2" />
+        <item
+            android:id="@+id/nav_carrito"
+            android:title="op3" />
+        <item
+            android:id="@+id/nav_ordenes"
+            android:title="op4" />
+        <item
+            android:id="@+id/nav_facturas"
+            android:title="op5" />
+
+        <!-- Sección de configuración -->
+        <item
+            android:id="@+id/configuration_section"
+            android:title="seccion">
+            <menu>
+                <item
+                    android:id="@+id/nav_log_out"
+                    android:title="sec_op" />
+            </menu>
+        </item>
+    </group>
+
+</menu>
