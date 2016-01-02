@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class InitActivity extends AppCompatActivity {
 
@@ -27,22 +28,9 @@ public class InitActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setAdapter(new MainPageAdapter());
 
-        btnIniciar = (Button) findViewById(R.id.btn_iniciar);
-
-        btnIniciar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent i = new Intent();
-                i.setClass(InitActivity.this, MainActivity.class);
-                startActivity(i);
-
-            }
-        });
-
     }
 
-    class MainPageAdapter extends PagerAdapter{
+   class MainPageAdapter extends PagerAdapter{
 
         private LinearLayout page1;
         private LinearLayout page2;
@@ -79,6 +67,16 @@ public class InitActivity extends AppCompatActivity {
                 case 2:
                     if (page3 == null){
                         page3 = (LinearLayout) LayoutInflater.from (InitActivity.this).inflate(R.layout.init_main,null);
+                        btnIniciar = (Button) page3.findViewById(R.id.btn_iniciar);
+                        btnIniciar.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(InitActivity.this,"pasa",Toast.LENGTH_SHORT).show();
+
+                                Intent i = new Intent()
+
+                            }
+                        });
                     }
                     page=page3;
                     break;

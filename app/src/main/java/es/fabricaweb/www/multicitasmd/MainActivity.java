@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+
 public class MainActivity extends AppCompatActivity {
     /**
      * Instancia del drawer
@@ -33,12 +34,12 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null) {
-            // Añadir carácteristicas
+            setupDrawerContent(navigationView);
         }
 
         drawerTitle = getResources().getString(R.string.home_item);
         if (savedInstanceState == null) {
-            // Seleccionar item
+            selectItem(drawerTitle);
         }
 
     }
@@ -55,10 +56,28 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        // Marcar item presionado
+                        menuItem.setChecked(true);
+                        // Crear nuevo fragmento
+                        String title = menuItem.getTitle().toString();
+                        selectItem(title);
+                        return true;
+                    }
+                }
+        );
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            getMenuInflater().inflate(R.menu.main, menu);
+            getMenuInflater().inflate(R.menu.nav_menu, menu);
             return true;
         }
         return super.onCreateOptionsMenu(menu);
@@ -73,5 +92,25 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void selectItem(String title) {
+        // Enviar título como arguemento del fragmento
+        Bundle args = new Bundle();
+        args.putString(PlaceholderFragment.ARG_SECTION_TITLE, title);
+
+        Fragment fragment = PlaceholderFragment.newInstance(title);
+        fragment.setArguments(args);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.main_content, fragment)
+                .commit();
+
+        drawerLayout.closeDrawers(); // Cerrar drawer
+
+        setTitle(title); // Setear título actual
+
+    }
+
 
 }
